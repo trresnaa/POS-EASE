@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Button } from '../components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card'
 import { Input } from '../components/ui/input'
@@ -164,7 +164,15 @@ export default function Pos() {
   const [products, setProducts] = useState(dataCache.products || [])
   const [search, setSearch] = useState('')
   const [categoryId, setCategoryId] = useState('all')
-  const [cart, setCart] = useState([])
+  const [cart, setCart] = useState(() => {
+    try {
+      const saved = sessionStorage.getItem('ease_pos_cart')
+      return saved ? JSON.parse(saved) : []
+    } catch {
+      return []
+    }
+  })
+  const cartSaveTimer = useRef(null)
   const [discount, setDiscount] = useState(0)
   const [cashReceived, setCashReceived] = useState(0)
   const [paymentMethod, setPaymentMethod] = useState('CASH')
@@ -177,6 +185,16 @@ export default function Pos() {
   const [selectedAddOns, setSelectedAddOns] = useState([])
   const [addons, setAddons] = useState(dataCache.addons || [])
   const [productAddons, setProductAddons] = useState(dataCache.productAddons || [])
+
+  // Auto-save cart ke sessionStorage setiap kali isi cart berubah
+  useEffect(() => {
+    clearTimeout(cartSaveTimer.current)
+    cartSaveTimer.current = setTimeout(() => {
+      try {
+        sessionStorage.setItem('ease_pos_cart', JSON.stringify(cart))
+      } catch { /* ignore */ }
+    }, 300) // debounce 300ms agar tidak terlalu sering write
+  }, [cart])
 
   useEffect(() => {
     let mounted = true
@@ -497,6 +515,7 @@ export default function Pos() {
     setDiscount(0)
     setCashReceived(0)
     setPaymentMethod('CASH')
+    sessionStorage.removeItem('ease_pos_cart') // Hapus cart setelah order selesai
   }
 
   /**
