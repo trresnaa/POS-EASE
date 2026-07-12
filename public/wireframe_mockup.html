@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wireframe Mockup - EASE COFFEE</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Courier New', Courier, monospace;
+      background-color: #ffffff;
+      color: #1c1917;
+    }
+    .wireframe-border {
+      border: 2px solid #78716c;
+    }
+    .wireframe-border-dashed {
+      border: 2px dashed #a8a29e;
+    }
+  </style>
+</head>
+<body class="p-8 space-y-16">
+
+  <!-- Penjelasan Figma Import -->
+  <div class="max-w-6xl mx-auto wireframe-border p-6 bg-stone-50 space-y-4">
+    <h1 class="text-lg font-bold uppercase border-b-2 border-stone-800 pb-2">PANDUAN IMPOR KE FIGMA</h1>
+    <div class="text-xs space-y-2 leading-relaxed">
+      <p class="font-bold text-red-700">Kenapa tidak bisa langsung diimpor dari file lokal (file:///D:/...)?</p>
+      <p>Plugin Figma seperti <strong>HTML to Design</strong> berjalan di server cloud Figma. Server Figma tidak memiliki akses ke harddisk lokal Anda (<code class="bg-stone-200 px-1">file:///...</code>) karena batasan keamanan browser (sandbox) dan jaringan.</p>
+      
+      <p class="font-bold mt-4 text-stone-800">Solusi Cara Impor:</p>
+      <ol class="list-decimal list-inside space-y-1.5 ml-2">
+        <li><strong>Metode Localhost (Direkomendasikan):</strong> Karena file ini diletakkan di folder <code class="bg-stone-200 px-1">public/wireframe_mockup.html</code>, jalankan proyek Anda dengan perintah <code class="bg-stone-200 px-1">npm run dev</code>. File ini akan bisa diakses melalui URL: <a href="http://localhost:5173/wireframe_mockup.html" target="_blank" class="underline text-blue-700 font-bold">http://localhost:5173/wireframe_mockup.html</a>. Masukkan URL tersebut ke plugin Figma <strong>HTML to Design</strong>.</li>
+        <li><strong>Metode Chrome Extension:</strong> Install ekstensi Chrome <strong>HTML to Design</strong> di browser Anda. Buka file ini di browser, klik ikon ekstensi tersebut, lalu pilih unduh sebagai file <code class="bg-stone-200 px-1">.figma</code>. Setelah terunduh, cukup drag-and-drop file tersebut langsung ke lembar kerja Figma Anda.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- GAMBAR 4.1: POS -->
+  <div class="space-y-4 max-w-6xl mx-auto">
+    <h2 class="text-base font-bold uppercase border-b-2 border-stone-800 pb-2">Gambar 4.1 Rancangan Halaman POS (Point of Sale)</h2>
+    <div class="wireframe-border p-4 min-h-[600px] flex gap-4 bg-white relative">
+      
+      <!-- Sidebar Navigation Placeholder -->
+      <div class="w-56 wireframe-border p-4 flex flex-col justify-between">
+        <div class="space-y-6">
+          <div class="h-12 wireframe-border relative flex items-center justify-center font-bold text-sm">
+            <svg class="absolute inset-0 h-full w-full stroke-stone-300 stroke-1" xmlns="http://www.w3.org/2000/svg">
+              <line x1="0" y1="0" x2="100%" y2="100%" />
+              <line x1="100%" y1="0" x2="0" y2="100%" />
+            </svg>
+            <span class="bg-white px-2 relative z-10">EASE COFFEE</span>
+          </div>
+
+          <div class="space-y-2">
+            <div class="h-8 wireframe-border bg-stone-100 flex items-center px-2 text-xs font-bold uppercase">POS</div>
+            <div class="h-8 wireframe-border flex items-center px-2 text-xs font-bold uppercase">Antrean</div>
+            <div class="h-8 wireframe-border flex items-center px-2 text-xs font-bold uppercase">Dashboard</div>
+            <div class="h-8 wireframe-border flex items-center px-2 text-xs font-bold uppercase">Laporan</div>
+            <div class="h-8 wireframe-border flex items-center px-2 text-xs font-bold uppercase">Produk</div>
+            <div class="h-8 wireframe-border flex items-center px-2 text-xs font-bold uppercase">Staff</div>
+          </div>
+        </div>
+
+        <div class="space-y-2 pt-4 border-t-2 border-stone-400">
+          <div class="h-6 wireframe-border-dashed flex items-center justify-center text-[10px]">STAFF / CASHER</div>
+          <div class="h-8 wireframe-border flex items-center justify-center text-xs font-bold bg-stone-100">LOGOUT</div>
+        </div>
+      </div>
+
+      <!-- Main Content POS Area -->
+      <div class="flex-1 flex gap-4">
+        <div class="flex-1 wireframe-border p-4 flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="flex gap-2">
+              <div class="flex-1 h-10 wireframe-border flex items-center px-3 text-xs text-stone-500">CARI MENU...</div>
+              <div class="w-36 h-10 wireframe-border flex items-center px-3 text-xs text-stone-500 justify-between">
+                <span>KATEGORI</span>
+                <span>▼</span>
+              </div>
+            </div>
+
+            <div class="flex gap-2 text-[10px] font-bold">
+              <span class="wireframe-border bg-stone-100 px-3 py-1.5 uppercase">Semua</span>
+              <span class="wireframe-border px-3 py-1.5 uppercase">Coffee</span>
+              <span class="wireframe-border px-3 py-1.5 uppercase">Non-Coffee</span>
+              <span class="wireframe-border px-3 py-1.5 uppercase">Food</span>
+            </div>
+
+            <div class="grid grid-cols-3 gap-3">
+              <div class="wireframe-border p-2 space-y-2">
+                <div class="h-20 wireframe-border relative flex items-center justify-center">
+                  <svg class="absolute inset-0 h-full w-full stroke-stone-300 stroke-1" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="0" y1="0" x2="100%" y2="100%" />
+                    <line x1="100%" y1="0" x2="0" y2="100%" />
+                  </svg>
+                  <span class="bg-white px-1 text-[9px] relative z-10">Kopi Susu Galang</span>
+                </div>
+                <div class="text-[10px] font-bold uppercase truncate">Kopi Susu Galang</div>
+                <div class="text-[10px] text-stone-600 font-bold">Rp 18.000</div>
+              </div>
+
+              <div class="wireframe-border p-2 space-y-2">
+                <div class="h-20 wireframe-border relative flex items-center justify-center">
+                  <svg class="absolute inset-0 h-full w-full stroke-stone-300 stroke-1" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="0" y1="0" x2="100%" y2="100%" />
+                    <line x1="100%" y1="0" x2="0" y2="100%" />
+                  </svg>
+                  <span class="bg-white px-1 text-[9px] relative z-10">Cappuccino</span>
+                </div>
+                <div class="text-[10px] font-bold uppercase truncate">Cappuccino</div>
+                <div class="text-[10px] text-stone-600 font-bold">Rp 20.000</div>
+              </div>
+
+              <div class="wireframe-border-dashed p-2 opacity-60 bg-stone-50 space-y-2">
+                <div class="h-20 wireframe-border-dashed relative flex items-center justify-center">
+                  <svg class="absolute inset-0 h-full w-full stroke-stone-300 stroke-1" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="0" y1="0" x2="100%" y2="100%" />
+                    <line x1="100%" y1="0" x2="0" y2="100%" />
+                  </svg>
+                  <span class="bg-white px-1 text-[9px] relative z-10">HABIS</span>
+                </div>
+                <div class="text-[10px] font-bold uppercase truncate">Butter Croissant</div>
+                <div class="text-[10px] text-stone-600 font-bold">Rp 15.000</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="w-80 wireframe-border p-4 flex flex-col justify-between bg-stone-50/50">
+          <div class="space-y-4">
+            <h3 class="text-xs font-bold uppercase border-b border-stone-400 pb-1">Detail Keranjang</h3>
+            <div class="space-y-2">
+              <div class="wireframe-border p-2 bg-white space-y-1">
+                <div class="flex justify-between text-xs font-bold">
+                  <span>1x Kopi Susu Galang</span>
+                  <span>Rp 18.000</span>
+                </div>
+                <div class="text-[9px] text-stone-500">Es: Normal, Gula: Less</div>
+                <div class="text-[9px] text-stone-500">Tambahan: Jelly (+Rp 2.000)</div>
+                <div class="flex justify-between items-center pt-1 text-[10px]">
+                  <div class="flex border border-stone-400">
+                    <span class="px-1.5 font-bold cursor-pointer">-</span>
+                    <span class="px-2 border-x border-stone-400">1</span>
+                    <span class="px-1.5 font-bold cursor-pointer">+</span>
+                  </div>
+                  <span class="text-red-600 font-bold cursor-pointer">Hapus</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-2 pt-4 border-t-2 border-stone-400 text-xs">
+            <div class="flex justify-between">
+              <span>Subtotal</span>
+              <span>Rp 18.018</span>
+            </div>
+            <div class="flex justify-between">
+              <span>PPN (11%)</span>
+              <span>Rp 1.982</span>
+            </div>
+            <div class="flex justify-between border-t border-stone-400 pt-1 font-bold">
+              <span>Total</span>
+              <span>Rp 20.000</span>
+            </div>
+            <div class="pt-2">
+              <div class="text-[9px] text-stone-500 mb-1">TUNAI DITERIMA</div>
+              <div class="h-8 wireframe-border flex items-center px-2 bg-white font-bold">Rp 50.000</div>
+            </div>
+            <div class="flex justify-between text-[10px] text-stone-600 font-bold">
+              <span>KEMBALIAN</span>
+              <span>Rp 30.000</span>
+            </div>
+            <button class="w-full h-10 wireframe-border bg-stone-800 text-white font-bold uppercase text-[10px] tracking-wide mt-2">
+              BAYAR & CETAK STRUK
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GAMBAR 4.2: DASHBOARD -->
+  <div class="space-y-4 max-w-6xl mx-auto">
+    <h2 class="text-base font-bold uppercase border-b-2 border-stone-800 pb-2">Gambar 4.2 Rancangan Halaman Dashboard Owner</h2>
+    <div class="wireframe-border p-4 min-h-[600px] flex gap-4 bg-white relative">
+      
+      <!-- Sidebar Navigation Placeholder -->
+      <div class="w-56 wireframe-border p-4 flex flex-col justify-between">
+        <div class="space-y-6">
+          <div class="h-12 wireframe-border relative flex items-center justify-center font-bold text-sm">
+            <svg class="absolute inset-0 h-full w-full stroke-stone-300 stroke-1" xmlns="http://www.w3.org/2000/svg">
+              <line x1="0" y1="0" x2="100%" y2="100%" />
+              <line x1="100%" y1="0" x2="0" y2="100%" />
+            </svg>
+            <span class="bg-white px-2 relative z-10">EASE COFFEE</span>
+          </div>
+
+          <div class="space-y-2">
+            <div class="h-8 wireframe-border flex items-center px-2 text-xs font-bold uppercase">POS</div>
+            <div class="h-8 wireframe-border flex items-center px-2 text-xs font-bold uppercase">Antrean</div>
+            <div class="h-8 wireframe-border bg-stone-100 flex items-center px-2 text-xs font-bold uppercase">Dashboard</div>
+            <div class="h-8 wireframe-border flex items-center px-2 text-xs font-bold uppercase">Laporan</div>
+            <div class="h-8 wireframe-border flex items-center px-2 text-xs font-bold uppercase">Produk</div>
+            <div class="h-8 wireframe-border flex items-center px-2 text-xs font-bold uppercase">Staff</div>
+          </div>
+        </div>
+
+        <div class="space-y-2 pt-4 border-t-2 border-stone-400">
+          <div class="h-6 wireframe-border-dashed flex items-center justify-center text-[10px]">OWNER</div>
+          <div class="h-8 wireframe-border flex items-center justify-center text-xs font-bold bg-stone-100">LOGOUT</div>
+        </div>
+      </div>
+
+      <!-- Main Content Dashboard Area -->
+      <div class="flex-1 space-y-4">
+        <div class="flex justify-between items-center">
+          <div>
+            <h1 class="text-sm font-bold uppercase">Ringkasan Analitik</h1>
+            <p class="text-[10px] text-stone-500">Statistik performa penjualan kafe.</p>
+          </div>
+          <div class="flex gap-1.5 items-center text-[10px] font-bold">
+            <span class="wireframe-border px-2 py-1 bg-white">01/06/2026</span>
+            <span>-</span>
+            <span class="wireframe-border px-2 py-1 bg-white">07/06/2026</span>
+            <span class="wireframe-border px-3 py-1 bg-stone-100 cursor-pointer">EKSPOR CSV</span>
+          </div>
+        </div>
+
+        <!-- Metrics Grid -->
+        <div class="grid grid-cols-4 gap-3 text-xs">
+          <div class="wireframe-border p-3 space-y-1">
+            <div class="text-[9px] text-stone-500 font-bold uppercase">Total Omzet</div>
+            <div class="text-base font-bold">Rp 2.520.000</div>
+          </div>
+          <div class="wireframe-border p-3 space-y-1">
+            <div class="text-[9px] text-stone-500 font-bold uppercase">Keuntungan Bersih</div>
+            <div class="text-base font-bold">Rp 1.940.000</div>
+          </div>
+          <div class="wireframe-border p-3 space-y-1">
+            <div class="text-[9px] text-stone-500 font-bold uppercase">Total Transaksi</div>
+            <div class="text-base font-bold">120 Order</div>
+          </div>
+          <div class="wireframe-border p-3 space-y-1 font-bold text-red-700 bg-red-50/50">
+            <div class="text-[9px] text-red-600 font-bold uppercase">Transaksi Void</div>
+            <div class="text-base font-bold">3 Kasus (Rp 54.000)</div>
+          </div>
+        </div>
+
+        <!-- Middle Section: Chart and Top Menu / Security Warning -->
+        <div class="grid grid-cols-3 gap-4">
+          <!-- Chart Placeholder -->
+          <div class="col-span-2 wireframe-border p-3 flex flex-col justify-between min-h-[220px]">
+            <div class="text-[10px] font-bold uppercase border-b border-stone-300 pb-1">Tren Penjualan Harian</div>
+            
+            <div class="flex-1 my-3 wireframe-border-dashed relative flex items-center justify-center bg-stone-50/30">
+              <svg class="absolute inset-0 h-full w-full stroke-stone-200 stroke-1" xmlns="http://www.w3.org/2000/svg">
+                <line x1="0" y1="0" x2="100%" y2="100%" />
+                <line x1="100%" y1="0" x2="0" y2="100%" />
+              </svg>
+              <!-- Line Chart Simulation -->
+              <svg class="absolute inset-0 h-full w-full" xmlns="http://www.w3.org/2000/svg">
+                <polyline fill="none" stroke="#78716c" stroke-width="2" points="20,130 80,90 140,110 200,60 260,80 320,40 380,90" />
+                <circle cx="20" cy="130" r="3" fill="#78716c" />
+                <circle cx="80" cy="90" r="3" fill="#78716c" />
+                <circle cx="140" cy="110" r="3" fill="#78716c" />
+                <circle cx="200" cy="60" r="3" fill="#78716c" />
+                <circle cx="260" cy="80" r="3" fill="#78716c" />
+                <circle cx="320" cy="40" r="3" fill="#78716c" />
+                <circle cx="380" cy="90" r="3" fill="#78716c" />
+              </svg>
+              <span class="bg-white px-2 py-0.5 text-[8px] relative z-10 border border-stone-400">GRAFIK PERFORMA KEUANGAN</span>
+            </div>
+            
+            <div class="flex justify-between text-[8px] text-stone-500">
+              <span>SEN</span><span>SEL</span><span>RAB</span><span>KAM</span><span>JUM</span><span>SAB</span><span>MIN</span>
+            </div>
+          </div>
+
+          <!-- Top Menu & Audit Void Widget -->
+          <div class="space-y-3">
+            <div class="wireframe-border p-3 space-y-2">
+              <div class="text-[10px] font-bold uppercase border-b border-stone-300 pb-1">Top Menu Terlaris</div>
+              <div class="space-y-1.5 text-[9px]">
+                <div class="flex justify-between">
+                  <span>1. Kopi Susu Galang</span>
+                  <span class="font-bold">45 Porsi</span>
+                </div>
+                <div class="flex justify-between">
+                  <span>2. Cappuccino</span>
+                  <span class="font-bold">32 Porsi</span>
+                </div>
+                <div class="flex justify-between">
+                  <span>3. Matcha Latte</span>
+                  <span class="font-bold">28 Porsi</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- SECURITY AUDIT VOID WIDGET -->
+            <div class="wireframe-border border-red-700 bg-red-50/20 p-3 space-y-2">
+              <div class="text-[10px] text-red-700 font-bold uppercase border-b border-red-300 pb-1 flex justify-between">
+                <span>AUDIT VOID (KASIR)</span>
+                <span class="text-xs">⚠️</span>
+              </div>
+              <div class="space-y-1 text-[8px] text-stone-700">
+                <div class="border-b border-dashed border-red-200 pb-1">
+                  <div class="flex justify-between font-bold text-red-700">
+                    <span>Kasir: Galang W.</span>
+                    <span>14:32</span>
+                  </div>
+                  <div>Alasan: "Batal, salah klik menu"</div>
+                </div>
+                <div class="pt-1">
+                  <div class="flex justify-between font-bold">
+                    <span>Kasir: Amanda S.</span>
+                    <span>11:15</span>
+                  </div>
+                  <div>Alasan: "Pelanggan kurang uang"</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- GAMBAR 4.3: ANTRIAN -->
+  <div class="space-y-4 max-w-6xl mx-auto">
+    <h2 class="text-base font-bold uppercase border-b-2 border-stone-800 pb-2">Gambar 4.3 Rancangan Halaman Antrean (Queue Management)</h2>
+    <div class="wireframe-border p-4 min-h-[600px] flex gap-4 bg-white relative">
+      
+      <!-- Sidebar Navigation Placeholder -->
+      <div class="w-56 wireframe-border p-4 flex flex-col justify-between">
+        <div class="space-y-6">
+          <div class="h-12 wireframe-border relative flex items-center justify-center font-bold text-sm">
+            <svg class="absolute inset-0 h-full w-full stroke-stone-300 stroke-1" xmlns="http://www.w3.org/2000/svg">
+              <line x1="0" y1="0" x2="100%" y2="100%" />
+              <line x1="100%" y1="0" x2="0" y2="100%" />
+            </svg>
+            <span class="bg-white px-2 relative z-10">EASE COFFEE</span>
+          </div>
+
+          <div class="space-y-2">
+            <div class="h-8 wireframe-border flex items-center px-2 text-xs font-bold uppercase">POS</div>
+            <div class="h-8 wireframe-border bg-stone-100 flex items-center px-2 text-xs font-bold uppercase">Antrean</div>
+            <div class="h-8 wireframe-border flex items-center px-2 text-xs font-bold uppercase">Dashboard</div>
+            <div class="h-8 wireframe-border flex items-center px-2 text-xs font-bold uppercase">Laporan</div>
+            <div class="h-8 wireframe-border flex items-center px-2 text-xs font-bold uppercase">Produk</div>
+            <div class="h-8 wireframe-border flex items-center px-2 text-xs font-bold uppercase">Staff</div>
+          </div>
+        </div>
+
+        <div class="space-y-2 pt-4 border-t-2 border-stone-400">
+          <div class="h-6 wireframe-border-dashed flex items-center justify-center text-[10px]">BARISTA / STAFF</div>
+          <div class="h-8 wireframe-border flex items-center justify-center text-xs font-bold bg-stone-100">LOGOUT</div>
+        </div>
+      </div>
+
+      <!-- Main Content Queue Area -->
+      <div class="flex-1 space-y-4">
+        <div class="flex justify-between items-center">
+          <div>
+            <h1 class="text-sm font-bold uppercase">Monitoring Antrean Pesanan</h1>
+            <p class="text-[10px] text-stone-500">Kelola dan selesaikan pesanan pelanggan secara realtime.</p>
+          </div>
+          <div class="flex gap-2 text-[10px] font-bold">
+            <span class="wireframe-border bg-stone-100 px-3 py-1">MENUNGGU (3)</span>
+            <span class="wireframe-border px-3 py-1">SELESAI (12)</span>
+          </div>
+        </div>
+
+        <!-- Grid Antrean Pesanan -->
+        <div class="grid grid-cols-3 gap-4">
+          
+          <!-- Card Pesanan 1 (Normal Timer) -->
+          <div class="wireframe-border p-3 flex flex-col justify-between min-h-[220px] bg-white">
+            <div class="space-y-2">
+              <div class="flex justify-between items-center border-b border-stone-300 pb-1.5">
+                <span class="text-xs font-bold text-stone-900">#EC-20260605-01</span>
+                <span class="wireframe-border px-1.5 py-0.5 text-[8px] bg-stone-100 font-bold">DINE-IN</span>
+              </div>
+              <div class="text-[10px] space-y-1">
+                <div class="font-bold uppercase">Meja 04 - Budi</div>
+                <div class="text-stone-500 text-[9px] border-t border-dashed border-stone-200 pt-1 mt-1">
+                  - 2x Kopi Susu Galang (Es: Less)<br>
+                  - 1x Butter Croissant (Hangat)
+                </div>
+              </div>
+            </div>
+            
+            <div class="mt-4 pt-2 border-t border-stone-300 flex justify-between items-center">
+              <div>
+                <span class="text-[8px] text-stone-500 block">DURASI</span>
+                <span class="text-xs font-bold font-mono">⏱️ 04:12 Min</span>
+              </div>
+              <button class="wireframe-border bg-stone-800 text-white text-[9px] font-bold px-3 py-1.5 uppercase hover:bg-stone-700">
+                SELESAI
+              </button>
+            </div>
+          </div>
+
+          <!-- Card Pesanan 2 (Warning/Overdue Timer) -->
+          <div class="wireframe-border border-red-600 p-3 flex flex-col justify-between min-h-[220px] bg-red-50/10">
+            <div class="space-y-2">
+              <div class="flex justify-between items-center border-b border-red-300 pb-1.5">
+                <span class="text-xs font-bold text-red-700">#EC-20260605-02</span>
+                <span class="wireframe-border border-red-600 px-1.5 py-0.5 text-[8px] bg-red-100 text-red-800 font-bold">TAKE-AWAY</span>
+              </div>
+              <div class="text-[10px] space-y-1">
+                <div class="font-bold uppercase">Pelanggan: Siska</div>
+                <div class="text-stone-500 text-[9px] border-t border-dashed border-stone-200 pt-1 mt-1">
+                  - 1x Ice Americano (Es: Normal)<br>
+                  - 1x Matcha Latte (Hot, Oatmilk)
+                </div>
+              </div>
+            </div>
+            
+            <div class="mt-4 pt-2 border-t border-red-300 flex justify-between items-center">
+              <div>
+                <span class="text-[8px] text-red-600 block">DURASI (OVERDUE)</span>
+                <span class="text-xs font-bold font-mono text-red-600">⏱️ 17:45 Min</span>
+              </div>
+              <button class="wireframe-border border-red-700 bg-red-700 text-white text-[9px] font-bold px-3 py-1.5 uppercase hover:bg-red-800">
+                SELESAI
+              </button>
+            </div>
+          </div>
+
+          <!-- Card Pesanan 3 -->
+          <div class="wireframe-border p-3 flex flex-col justify-between min-h-[220px] bg-white">
+            <div class="space-y-2">
+              <div class="flex justify-between items-center border-b border-stone-300 pb-1.5">
+                <span class="text-xs font-bold text-stone-900">#EC-20260605-03</span>
+                <span class="wireframe-border px-1.5 py-0.5 text-[8px] bg-stone-100 font-bold">DINE-IN</span>
+              </div>
+              <div class="text-[10px] space-y-1">
+                <div class="font-bold uppercase">Meja 09 - Andi</div>
+                <div class="text-stone-500 text-[9px] border-t border-dashed border-stone-200 pt-1 mt-1">
+                  - 1x Cappuccino (Hot, Sugar: Less)
+                </div>
+              </div>
+            </div>
+            
+            <div class="mt-4 pt-2 border-t border-stone-300 flex justify-between items-center">
+              <div>
+                <span class="text-[8px] text-stone-500 block">DURASI</span>
+                <span class="text-xs font-bold font-mono">⏱️ 01:20 Min</span>
+              </div>
+              <button class="wireframe-border bg-stone-800 text-white text-[9px] font-bold px-3 py-1.5 uppercase hover:bg-stone-700">
+                SELESAI
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GAMBAR 4.4: KELOLA PRODUK -->
+  <div class="space-y-4 max-w-6xl mx-auto">
+    <h2 class="text-base font-bold uppercase border-b-2 border-stone-800 pb-2">Gambar 4.4 Rancangan Halaman Kelola Produk & Kustomisasi</h2>
+    <div class="wireframe-border p-4 min-h-[600px] flex gap-4 bg-white relative">
+      
+      <!-- Sidebar Navigation Placeholder -->
+      <div class="w-56 wireframe-border p-4 flex flex-col justify-between">
+        <div class="space-y-6">
+          <div class="h-12 wireframe-border relative flex items-center justify-center font-bold text-sm">
+            <svg class="absolute inset-0 h-full w-full stroke-stone-300 stroke-1" xmlns="http://www.w3.org/2000/svg">
+              <line x1="0" y1="0" x2="100%" y2="100%" />
+              <line x1="100%" y1="0" x2="0" y2="100%" />
+            </svg>
+            <span class="bg-white px-2 relative z-10">EASE COFFEE</span>
+          </div>
+
+          <div class="space-y-2">
+            <div class="h-8 wireframe-border flex items-center px-2 text-xs font-bold uppercase">POS</div>
+            <div class="h-8 wireframe-border flex items-center px-2 text-xs font-bold uppercase">Antrean</div>
+            <div class="h-8 wireframe-border flex items-center px-2 text-xs font-bold uppercase">Dashboard</div>
+            <div class="h-8 wireframe-border flex items-center px-2 text-xs font-bold uppercase">Laporan</div>
+            <div class="h-8 wireframe-border bg-stone-100 flex items-center px-2 text-xs font-bold uppercase">Produk</div>
+            <div class="h-8 wireframe-border flex items-center px-2 text-xs font-bold uppercase">Staff</div>
+          </div>
+        </div>
+
+        <div class="space-y-2 pt-4 border-t-2 border-stone-400">
+          <div class="h-6 wireframe-border-dashed flex items-center justify-center text-[10px]">ADMIN / OWNER</div>
+          <div class="h-8 wireframe-border flex items-center justify-center text-xs font-bold bg-stone-100">LOGOUT</div>
+        </div>
+      </div>
+
+      <!-- Main Content Product Area -->
+      <div class="flex-1 flex gap-4">
+        
+        <!-- Left Side: Product Table -->
+        <div class="flex-1 wireframe-border p-4 space-y-4">
+          <div class="flex justify-between items-center">
+            <h3 class="text-xs font-bold uppercase">Daftar Menu Kopi & Makanan</h3>
+            <span class="wireframe-border px-2 py-1 text-[9px] bg-stone-100 font-bold cursor-pointer">+ TAMBAH PRODUK BARU</span>
+          </div>
+
+          <!-- Product Table List -->
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-[10px]">
+              <thead>
+                <tr class="border-b-2 border-stone-500 font-bold uppercase">
+                  <th class="pb-2">Nama Menu</th>
+                  <th class="pb-2">Kategori</th>
+                  <th class="pb-2">Harga</th>
+                  <th class="pb-2">Kustomisasi</th>
+                  <th class="pb-2">Status</th>
+                  <th class="pb-2 text-right">Aksi</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-stone-300">
+                <tr>
+                  <td class="py-2.5 font-bold">Kopi Susu Galang</td>
+                  <td class="py-2.5">Coffee</td>
+                  <td class="py-2.5">Rp 18.000</td>
+                  <td class="py-2.5">Ice Temp, Sugar</td>
+                  <td class="py-2.5 text-green-700 font-bold">AKTIF</td>
+                  <td class="py-2.5 text-right font-bold space-x-2">
+                    <span class="underline cursor-pointer">EDIT</span>
+                    <span class="underline text-red-600 cursor-pointer">HAPUS</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 font-bold">Cappuccino</td>
+                  <td class="py-2.5">Coffee</td>
+                  <td class="py-2.5">Rp 20.000</td>
+                  <td class="py-2.5">Ice Temp, Sugar</td>
+                  <td class="py-2.5 text-green-700 font-bold">AKTIF</td>
+                  <td class="py-2.5 text-right font-bold space-x-2">
+                    <span class="underline cursor-pointer">EDIT</span>
+                    <span class="underline text-red-600 cursor-pointer">HAPUS</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 font-bold">Butter Croissant</td>
+                  <td class="py-2.5">Food</td>
+                  <td class="py-2.5">Rp 15.000</td>
+                  <td class="py-2.5">-</td>
+                  <td class="py-2.5 text-stone-500">HABIS</td>
+                  <td class="py-2.5 text-right font-bold space-x-2">
+                    <span class="underline cursor-pointer">EDIT</span>
+                    <span class="underline text-red-600 cursor-pointer">HAPUS</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Right Side: Form Tambah/Edit Produk (Database Dynamic Customizations & Add-ons) -->
+        <div class="w-80 wireframe-border p-4 space-y-4 bg-stone-50/50">
+          <h3 class="text-xs font-bold uppercase border-b border-stone-400 pb-1">Detail Form Edit Produk</h3>
+          
+          <div class="space-y-3 text-[10px]">
+            <!-- Nama & Harga -->
+            <div class="space-y-1">
+              <label class="font-bold">NAMA MENU</label>
+              <div class="h-8 wireframe-border flex items-center px-2 bg-white font-bold">Kopi Susu Galang</div>
+            </div>
+            
+            <div class="space-y-1">
+              <label class="font-bold">HARGA (Rp)</label>
+              <div class="h-8 wireframe-border flex items-center px-2 bg-white">18000</div>
+            </div>
+
+            <div class="space-y-1">
+              <label class="font-bold">KATEGORI</label>
+              <div class="h-8 wireframe-border flex items-center justify-between px-2 bg-white">
+                <span>COFFEE</span>
+                <span>▼</span>
+              </div>
+            </div>
+
+            <!-- Customizations Checkboxes -->
+            <div class="space-y-2 border-t border-stone-300 pt-2">
+              <label class="font-bold block uppercase">Kustomisasi Suhu & Gula</label>
+              <div class="flex flex-col gap-1.5 ml-1">
+                <label class="flex items-center gap-1.5 cursor-pointer">
+                  <div class="w-3.5 h-3.5 wireframe-border flex items-center justify-center text-[8px] font-bold bg-stone-200">X</div>
+                  <span>Temperatur (Ice / Hot)</span>
+                </label>
+                <label class="flex items-center gap-1.5 cursor-pointer">
+                  <div class="w-3.5 h-3.5 wireframe-border flex items-center justify-center text-[8px] font-bold bg-stone-200">X</div>
+                  <span>Kadar Gula (Less / Normal)</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Add-ons Selection (Database Add-ons) -->
+            <div class="space-y-2 border-t border-stone-300 pt-2">
+              <label class="font-bold block uppercase">Pilihan Add-on (Ekstra Tambahan)</label>
+              <div class="flex flex-col gap-1.5 ml-1">
+                <label class="flex items-center gap-1.5 cursor-pointer">
+                  <div class="w-3.5 h-3.5 wireframe-border flex items-center justify-center text-[8px] font-bold bg-stone-200">X</div>
+                  <span>Coffee Shot (+Rp 4.000)</span>
+                </label>
+                <label class="flex items-center gap-1.5 cursor-pointer">
+                  <div class="w-3.5 h-3.5 wireframe-border flex items-center justify-center text-[8px] font-bold bg-stone-200">X</div>
+                  <span>Jelly Cincau (+Rp 2.000)</span>
+                </label>
+              </div>
+              
+              <!-- Input Add-on Baru On-The-Fly -->
+              <div class="flex gap-1.5 mt-2">
+                <div class="flex-1 h-7 wireframe-border flex items-center px-2 bg-white text-[9px] text-stone-500">Nama Add-on Baru...</div>
+                <div class="w-16 h-7 wireframe-border flex items-center px-1.5 bg-white text-[9px] text-stone-500">Rp...</div>
+                <button class="wireframe-border px-2 text-[9px] bg-stone-200 font-bold">+</button>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex gap-2 pt-3 border-t border-stone-400">
+              <button class="flex-1 h-8 wireframe-border text-[9px] font-bold uppercase bg-stone-100">BATAL</button>
+              <button class="flex-1 h-8 wireframe-border text-[9px] font-bold uppercase bg-stone-800 text-white">SIMPAN</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- GAMBAR 4.5: LOGIN -->
+  <div class="space-y-4 max-w-6xl mx-auto">
+    <h2 class="text-base font-bold uppercase border-b-2 border-stone-800 pb-2">Gambar 4.5 Rancangan Halaman Login Multi-Role</h2>
+    <div class="wireframe-border p-4 min-h-[450px] flex items-center justify-center bg-stone-50/20 relative">
+      
+      <!-- Login Form Card -->
+      <div class="w-96 wireframe-border p-6 bg-white space-y-6">
+        <div class="text-center space-y-1">
+          <!-- Logo Placeholder in Login -->
+          <div class="h-10 w-24 mx-auto wireframe-border relative flex items-center justify-center font-bold text-xs">
+            <svg class="absolute inset-0 h-full w-full stroke-stone-300 stroke-1" xmlns="http://www.w3.org/2000/svg">
+              <line x1="0" y1="0" x2="100%" y2="100%" />
+              <line x1="100%" y1="0" x2="0" y2="100%" />
+            </svg>
+            <span class="bg-white px-1 relative z-10">LOGO</span>
+          </div>
+          <h3 class="text-sm font-bold uppercase tracking-wider mt-2">EASE COFFEE SYSTEM</h3>
+          <p class="text-[9px] text-stone-500">Silakan login menggunakan kredensial kasir/owner.</p>
+        </div>
+
+        <div class="space-y-3 text-[10px]">
+          <!-- Email / Username Input -->
+          <div class="space-y-1">
+            <label class="font-bold uppercase">Email atau Username</label>
+            <div class="h-8 wireframe-border flex items-center px-2 bg-white text-stone-400">masukkan email anda...</div>
+          </div>
+
+          <!-- Password Input -->
+          <div class="space-y-1">
+            <label class="font-bold uppercase">Kata Sandi</label>
+            <div class="h-8 wireframe-border flex items-center justify-between px-2 bg-white text-stone-400">
+              <span>••••••••</span>
+              <span class="text-[9px] underline font-bold cursor-pointer text-stone-700">LIHAT</span>
+            </div>
+          </div>
+
+          <!-- Keep Signed In Checkbox -->
+          <div class="flex items-center gap-1.5 pt-1">
+            <div class="w-3.5 h-3.5 wireframe-border flex items-center justify-center text-[8px] font-bold bg-stone-200">X</div>
+            <span>Ingat saya di perangkat ini</span>
+          </div>
+
+          <!-- Submit Button -->
+          <button class="w-full h-10 wireframe-border bg-stone-800 text-white font-bold uppercase text-[10px] tracking-wide mt-2">
+            MASUK KE SISTEM
+          </button>
+        </div>
+
+        <div class="text-center pt-2 border-t border-dashed border-stone-300">
+          <p class="text-[8px] text-stone-500">Hubungi Admin Kafe jika Anda lupa kredensial login Anda.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- GAMBAR 4.6: LAPORAN PENJUALAN (REPORT & SECURITY VOID AUDIT) -->
+  <div class="space-y-4 max-w-6xl mx-auto">
+    <h2 class="text-base font-bold uppercase border-b-2 border-stone-800 pb-2">Gambar 4.6 Rancangan Halaman Laporan Penjualan & Audit Keamanan Void</h2>
+    <div class="wireframe-border p-4 min-h-[600px] flex gap-4 bg-white relative">
+      
+      <!-- Sidebar Navigation Placeholder -->
+      <div class="w-56 wireframe-border p-4 flex flex-col justify-between">
+        <div class="space-y-6">
+          <div class="h-12 wireframe-border relative flex items-center justify-center font-bold text-sm">
+            <svg class="absolute inset-0 h-full w-full stroke-stone-300 stroke-1" xmlns="http://www.w3.org/2000/svg">
+              <line x1="0" y1="0" x2="100%" y2="100%" />
+              <line x1="100%" y1="0" x2="0" y2="100%" />
+            </svg>
+            <span class="bg-white px-2 relative z-10">EASE COFFEE</span>
+          </div>
+
+          <div class="space-y-2">
+            <div class="h-8 wireframe-border flex items-center px-2 text-xs font-bold uppercase">POS</div>
+            <div class="h-8 wireframe-border flex items-center px-2 text-xs font-bold uppercase">Antrean</div>
+            <div class="h-8 wireframe-border flex items-center px-2 text-xs font-bold uppercase">Dashboard</div>
+            <div class="h-8 wireframe-border bg-stone-100 flex items-center px-2 text-xs font-bold uppercase">Laporan</div>
+            <div class="h-8 wireframe-border flex items-center px-2 text-xs font-bold uppercase">Produk</div>
+            <div class="h-8 wireframe-border flex items-center px-2 text-xs font-bold uppercase">Staff</div>
+          </div>
+        </div>
+
+        <div class="space-y-2 pt-4 border-t-2 border-stone-400">
+          <div class="h-6 wireframe-border-dashed flex items-center justify-center text-[10px]">OWNER</div>
+          <div class="h-8 wireframe-border flex items-center justify-center text-xs font-bold bg-stone-100">LOGOUT</div>
+        </div>
+      </div>
+
+      <!-- Main Content Reports Area -->
+      <div class="flex-1 space-y-4">
+        
+        <!-- Header & Filters -->
+        <div class="flex justify-between items-end border-b border-stone-300 pb-3">
+          <div>
+            <h1 class="text-sm font-bold uppercase">Laporan Riwayat Transaksi & Audit</h1>
+            <p class="text-[10px] text-stone-500">Pencatatan detail semua transaksi kasir secara kronologis.</p>
+          </div>
+          <!-- Filter Controls -->
+          <div class="flex gap-2 text-[9px] font-bold">
+            <div class="wireframe-border px-2 py-1 bg-white flex items-center gap-1">
+              <span>ROLE: SEMUA</span>
+              <span>▼</span>
+            </div>
+            <div class="wireframe-border px-2 py-1 bg-white flex items-center gap-1">
+              <span>STATUS: SUKSES/VOID</span>
+              <span>▼</span>
+            </div>
+            <span class="wireframe-border px-3 py-1 bg-stone-800 text-white cursor-pointer uppercase">EKSPOR CSV</span>
+          </div>
+        </div>
+
+        <!-- Layout splits into Main Log Table (Left) and Void Audit Summary (Right) -->
+        <div class="flex gap-4">
+          
+          <!-- Transaction Log Table -->
+          <div class="flex-1 wireframe-border p-3 space-y-3">
+            <div class="text-[10px] font-bold uppercase">Log Transaksi Kasir</div>
+            
+            <table class="w-full text-left text-[9px]">
+              <thead>
+                <tr class="border-b border-stone-400 font-bold uppercase">
+                  <th class="pb-1.5">No. Order / Waktu</th>
+                  <th class="pb-1.5">Kasir</th>
+                  <th class="pb-1.5">Item Belanja</th>
+                  <th class="pb-1.5">Total</th>
+                  <th class="pb-1.5">Status</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-stone-200">
+                <tr>
+                  <td class="py-2">
+                    <span class="font-bold block">#EC-20260605-03</span>
+                    <span class="text-stone-500">05/06/2026 14:10</span>
+                  </td>
+                  <td class="py-2">Galang W.</td>
+                  <td class="py-2">1x Cappuccino (Hot)</td>
+                  <td class="py-2 font-bold">Rp 20.000</td>
+                  <td class="py-2"><span class="wireframe-border px-1.5 py-0.5 text-[8px] bg-stone-100 font-bold">SUKSES</span></td>
+                </tr>
+                <tr class="bg-red-50/20">
+                  <td class="py-2">
+                    <span class="font-bold text-red-700 block">#EC-20260605-02</span>
+                    <span class="text-stone-500">05/06/2026 13:45</span>
+                  </td>
+                  <td class="py-2">Amanda S.</td>
+                  <td class="py-2">2x Kopi Susu Galang (Es)</td>
+                  <td class="py-2 font-bold text-red-700">Rp 36.000</td>
+                  <td class="py-2"><span class="wireframe-border border-red-600 px-1.5 py-0.5 text-[8px] bg-red-100 text-red-800 font-bold">VOID</span></td>
+                </tr>
+                <tr>
+                  <td class="py-2">
+                    <span class="font-bold block">#EC-20260605-01</span>
+                    <span class="text-stone-500">05/06/2026 13:20</span>
+                  </td>
+                  <td class="py-2">Galang W.</td>
+                  <td class="py-2">1x Ice Americano</td>
+                  <td class="py-2 font-bold">Rp 18.000</td>
+                  <td class="py-2"><span class="wireframe-border px-1.5 py-0.5 text-[8px] bg-stone-100 font-bold">SUKSES</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Void Security Audit Panel -->
+          <div class="w-80 wireframe-border border-red-700 bg-red-50/10 p-3 space-y-4">
+            <div>
+              <h3 class="text-xs font-bold text-red-700 uppercase flex items-center justify-between border-b border-red-300 pb-1">
+                <span>Audit Keamanan Void</span>
+                <span>🚨</span>
+              </h3>
+              <p class="text-[8px] text-stone-500 mt-1">Audit log khusus untuk mendeteksi potensi fraud/kecurangan kasir melalui transaksi void.</p>
+            </div>
+
+            <!-- Alasan Void Paling Sering -->
+            <div class="space-y-1.5">
+              <span class="text-[9px] font-bold uppercase block text-stone-700">Statistik Alasan Void:</span>
+              <div class="space-y-1 text-[8.5px]">
+                <div class="flex justify-between border-b border-dashed border-stone-200 pb-1">
+                  <span>1. "Pelanggan Batal Order"</span>
+                  <span class="font-bold">4x Kasus</span>
+                </div>
+                <div class="flex justify-between border-b border-dashed border-stone-200 pb-1">
+                  <span>2. "Kasir Salah Klik Menu"</span>
+                  <span class="font-bold">3x Kasus</span>
+                </div>
+                <div class="flex justify-between border-b border-dashed border-stone-200 pb-1">
+                  <span>3. "Uang Tunai Kurang"</span>
+                  <span class="font-bold">1x Kasus</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Analisis Perilaku Kasir -->
+            <div class="space-y-1.5 border-t border-red-200 pt-2.5">
+              <span class="text-[9px] font-bold uppercase block text-stone-700">Rekap Void Per Kasir:</span>
+              <div class="space-y-1 text-[8.5px]">
+                <div class="flex justify-between border-b border-dashed border-stone-200 pb-1">
+                  <span>Amanda S. (Karyawan A)</span>
+                  <span class="font-bold text-red-700">5x Void (Rp 90.000)</span>
+                </div>
+                <div class="flex justify-between border-b border-dashed border-stone-200 pb-1">
+                  <span>Galang W. (Karyawan B)</span>
+                  <span class="font-bold">3x Void (Rp 54.000)</span>
+                </div>
+              </div>
+              <p class="text-[7.5px] text-red-600 mt-1 italic">Catatan: Frekuensi void yang tinggi (>5 kasus/minggu) pada kasir tertentu perlu diaudit kecocokan dengan rekaman CCTV kasir.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- GAMBAR 4.7: KELOLA STAFF (USER ACCESS & ROLE MANAGEMENT) -->
+  <div class="space-y-4 max-w-6xl mx-auto">
+    <h2 class="text-base font-bold uppercase border-b-2 border-stone-800 pb-2">Gambar 4.7 Rancangan Halaman Kelola Staff & Hak Akses (User Management)</h2>
+    <div class="wireframe-border p-4 min-h-[600px] flex gap-4 bg-white relative">
+      
+      <!-- Sidebar Navigation Placeholder -->
+      <div class="w-56 wireframe-border p-4 flex flex-col justify-between">
+        <div class="space-y-6">
+          <div class="h-12 wireframe-border relative flex items-center justify-center font-bold text-sm">
+            <svg class="absolute inset-0 h-full w-full stroke-stone-300 stroke-1" xmlns="http://www.w3.org/2000/svg">
+              <line x1="0" y1="0" x2="100%" y2="100%" />
+              <line x1="100%" y1="0" x2="0" y2="100%" />
+            </svg>
+            <span class="bg-white px-2 relative z-10">EASE COFFEE</span>
+          </div>
+
+          <div class="space-y-2">
+            <div class="h-8 wireframe-border flex items-center px-2 text-xs font-bold uppercase">POS</div>
+            <div class="h-8 wireframe-border flex items-center px-2 text-xs font-bold uppercase">Antrean</div>
+            <div class="h-8 wireframe-border flex items-center px-2 text-xs font-bold uppercase">Dashboard</div>
+            <div class="h-8 wireframe-border flex items-center px-2 text-xs font-bold uppercase">Laporan</div>
+            <div class="h-8 wireframe-border flex items-center px-2 text-xs font-bold uppercase">Produk</div>
+            <div class="h-8 wireframe-border bg-stone-100 flex items-center px-2 text-xs font-bold uppercase">Staff</div>
+          </div>
+        </div>
+
+        <div class="space-y-2 pt-4 border-t-2 border-stone-400">
+          <div class="h-6 wireframe-border-dashed flex items-center justify-center text-[10px]">OWNER</div>
+          <div class="h-8 wireframe-border flex items-center justify-center text-xs font-bold bg-stone-100">LOGOUT</div>
+        </div>
+      </div>
+
+      <!-- Main Content Staff Area -->
+      <div class="flex-1 flex gap-4">
+        
+        <!-- Left Side: Staff Table -->
+        <div class="flex-1 wireframe-border p-4 space-y-4">
+          <div class="flex justify-between items-center">
+            <h3 class="text-xs font-bold uppercase">Daftar Karyawan & Hak Akses</h3>
+            <span class="wireframe-border px-2 py-1 text-[9px] bg-stone-100 font-bold cursor-pointer">+ TAMBAH STAFF BARU</span>
+          </div>
+
+          <!-- Staff Table List -->
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-[10px]">
+              <thead>
+                <tr class="border-b-2 border-stone-500 font-bold uppercase">
+                  <th class="pb-2">Nama Karyawan</th>
+                  <th class="pb-2">Email / Username</th>
+                  <th class="pb-2">Peran (Role)</th>
+                  <th class="pb-2">Dibuat Pada</th>
+                  <th class="pb-2">Status</th>
+                  <th class="pb-2 text-right">Aksi</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-stone-300">
+                <tr>
+                  <td class="py-2.5 font-bold">Galang Wijaya</td>
+                  <td class="py-2.5">galang@ease.com</td>
+                  <td class="py-2.5"><span class="wireframe-border px-1.5 py-0.5 text-[8px] bg-stone-100 font-bold">KASIR</span></td>
+                  <td class="py-2.5">01/05/2026</td>
+                  <td class="py-2.5 text-green-700 font-bold">AKTIF</td>
+                  <td class="py-2.5 text-right font-bold space-x-2">
+                    <span class="underline cursor-pointer">EDIT</span>
+                    <span class="underline text-red-600 cursor-pointer">NONAKTIFKAN</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 font-bold">Amanda Saputri</td>
+                  <td class="py-2.5">amanda@ease.com</td>
+                  <td class="py-2.5"><span class="wireframe-border px-1.5 py-0.5 text-[8px] bg-stone-100 font-bold">BARISTA</span></td>
+                  <td class="py-2.5">03/05/2026</td>
+                  <td class="py-2.5 text-green-700 font-bold">AKTIF</td>
+                  <td class="py-2.5 text-right font-bold space-x-2">
+                    <span class="underline cursor-pointer">EDIT</span>
+                    <span class="underline text-red-600 cursor-pointer">NONAKTIFKAN</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 font-bold">Rian Hidayat</td>
+                  <td class="py-2.5">rian@ease.com</td>
+                  <td class="py-2.5"><span class="wireframe-border px-1.5 py-0.5 text-[8px] bg-stone-100 font-bold">ADMIN</span></td>
+                  <td class="py-2.5">15/05/2026</td>
+                  <td class="py-2.5 text-stone-500">NONAKTIF</td>
+                  <td class="py-2.5 text-right font-bold space-x-2">
+                    <span class="underline cursor-pointer">EDIT</span>
+                    <span class="underline text-green-700 cursor-pointer">AKTIFKAN</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Right Side: Form Tambah/Edit Staff -->
+        <div class="w-80 wireframe-border p-4 space-y-4 bg-stone-50/50">
+          <h3 class="text-xs font-bold uppercase border-b border-stone-400 pb-1">Detail Form Karyawan</h3>
+          
+          <div class="space-y-3 text-[10px]">
+            <!-- Nama Karyawan -->
+            <div class="space-y-1">
+              <label class="font-bold">NAMA LENGKAP</label>
+              <div class="h-8 wireframe-border flex items-center px-2 bg-white font-bold">Galang Wijaya</div>
+            </div>
+
+            <!-- Email -->
+            <div class="space-y-1">
+              <label class="font-bold">EMAIL</label>
+              <div class="h-8 wireframe-border flex items-center px-2 bg-white">galang@ease.com</div>
+            </div>
+
+            <!-- Sandi Akun -->
+            <div class="space-y-1">
+              <label class="font-bold">KATA SANDI BARU (OPSIONAL)</label>
+              <div class="h-8 wireframe-border flex items-center px-2 bg-white text-stone-400">••••••••</div>
+            </div>
+
+            <!-- Role Dropdown -->
+            <div class="space-y-1">
+              <label class="font-bold">HAK AKSES / PERAN (ROLE)</label>
+              <div class="h-8 wireframe-border flex items-center justify-between px-2 bg-white font-bold">
+                <span>KASIR</span>
+                <span>▼</span>
+              </div>
+            </div>
+
+            <!-- Status Aktif Toggle -->
+            <div class="space-y-2 border-t border-stone-300 pt-2">
+              <label class="font-bold block uppercase">Status Keaktifan Akun</label>
+              <label class="flex items-center gap-1.5 cursor-pointer">
+                <div class="w-3.5 h-3.5 wireframe-border flex items-center justify-center text-[8px] font-bold bg-stone-200">X</div>
+                <span>Akun Aktif (Dapat Login ke Aplikasi)</span>
+              </label>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex gap-2 pt-4 border-t border-stone-400">
+              <button class="flex-1 h-8 wireframe-border text-[9px] font-bold uppercase bg-stone-100">BATAL</button>
+              <button class="flex-1 h-8 wireframe-border text-[9px] font-bold uppercase bg-stone-800 text-white">SIMPAN STAFF</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
