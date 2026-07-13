@@ -317,106 +317,134 @@ export default function Reports() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Top 5 Menu</CardTitle>
+          <div className="flex items-center justify-between">
+            <CardTitle>Top 5 Menu</CardTitle>
+            {topProducts.length > 0 && (
+              <span className="text-sm text-slate-500 font-normal">{topProducts.length} menu</span>
+            )}
+          </div>
         </CardHeader>
-        <CardContent className="space-y-2 text-sm">
+        <CardContent className="text-sm p-0">
           {topProducts.length === 0 ? (
-            <div className="text-slate-500">Belum ada data.</div>
+            <div className="text-slate-500 px-6 pb-6">Belum ada data.</div>
           ) : (
-            topProducts.map((product, index) => (
-              <div
-                key={product.product_id}
-                className="flex items-center justify-between rounded-md border border-slate-200 px-3 py-2"
-              >
-                <div>
-                  <div className="font-medium">
-                    {index + 1}. {product.name}
+            <div className="space-y-2 overflow-y-auto px-6 pb-6" style={{ maxHeight: '360px' }}>
+              {topProducts.map((product, index) => (
+                <div
+                  key={product.product_id}
+                  className="flex items-center justify-between rounded-md border border-slate-200 px-3 py-2"
+                >
+                  <div>
+                    <div className="font-medium">
+                      {index + 1}. {product.name}
+                    </div>
+                    <div className="text-xs text-slate-500">Qty: {product.total_qty}</div>
                   </div>
-                  <div className="text-xs text-slate-500">Qty: {product.total_qty}</div>
+                  <div className="text-sm">{formatRupiah(product.total_sales)}</div>
                 </div>
-                <div className="text-sm">{formatRupiah(product.total_sales)}</div>
-              </div>
-            ))
+              ))}
+            </div>
           )}
         </CardContent>
       </Card>
 
       <Card>
         <CardHeader>
-          <CardTitle>Menu Paling Tidak Laku</CardTitle>
+          <div className="flex items-center justify-between">
+            <CardTitle>Menu Paling Tidak Laku</CardTitle>
+            {bottomProducts.length > 0 && (
+              <span className="text-sm text-slate-500 font-normal">{bottomProducts.length} menu</span>
+            )}
+          </div>
         </CardHeader>
-        <CardContent className="space-y-2 text-sm">
+        <CardContent className="text-sm p-0">
           {bottomProducts.length === 0 ? (
-            <div className="text-slate-500">Belum ada data.</div>
+            <div className="text-slate-500 px-6 pb-6">Belum ada data.</div>
           ) : (
-            bottomProducts.map((product, index) => (
-              <div
-                key={product.product_id}
-                className="flex items-center justify-between rounded-md border border-slate-200 px-3 py-2"
-              >
-                <div>
-                  <div className="font-medium">
-                    {index + 1}. {product.name}
+            <div className="space-y-2 overflow-y-auto px-6 pb-6" style={{ maxHeight: '360px' }}>
+              {bottomProducts.map((product, index) => (
+                <div
+                  key={product.product_id}
+                  className="flex items-center justify-between rounded-md border border-slate-200 px-3 py-2"
+                >
+                  <div>
+                    <div className="font-medium">
+                      {index + 1}. {product.name}
+                    </div>
+                    <div className="text-xs text-slate-500">Qty: {product.total_qty}</div>
                   </div>
-                  <div className="text-xs text-slate-500">Qty: {product.total_qty}</div>
+                  <div className="text-sm">{formatRupiah(product.total_sales)}</div>
                 </div>
-                <div className="text-sm">{formatRupiah(product.total_sales)}</div>
-              </div>
-            ))
+              ))}
+            </div>
           )}
         </CardContent>
       </Card>
 
       <Card>
         <CardHeader>
-          <CardTitle>Void Logs</CardTitle>
+          <div className="flex items-center justify-between">
+            <CardTitle>Void Logs</CardTitle>
+            {voidLogs.length > 0 && (
+              <span className="text-sm text-slate-500 font-normal">{voidLogs.length} log</span>
+            )}
+          </div>
         </CardHeader>
-        <CardContent className="space-y-2 text-sm">
+        <CardContent className="text-sm p-0">
           {voidLogs.length === 0 ? (
-            <div className="text-slate-500">Tidak ada void pada periode ini.</div>
+            <div className="text-slate-500 px-6 pb-6">Tidak ada void pada periode ini.</div>
           ) : (
-            voidLogs.map((log) => (
-              <div
-                key={log.id}
-                className="flex items-center justify-between rounded-md border border-slate-200 px-3 py-2"
-              >
-                <div>
-                  <div className="font-medium">{log.order?.order_number || '-'}</div>
-                  <div className="text-xs text-slate-500">{log.reason}</div>
+            <div className="space-y-2 overflow-y-auto px-6 pb-6" style={{ maxHeight: '360px' }}>
+              {voidLogs.map((log) => (
+                <div
+                  key={log.id}
+                  className="flex items-center justify-between rounded-md border border-slate-200 px-3 py-2"
+                >
+                  <div>
+                    <div className="font-medium">{log.order?.order_number || '-'}</div>
+                    <div className="text-xs text-slate-500">{log.reason}</div>
+                  </div>
+                  <div className="text-xs text-slate-500">
+                    {new Date(log.created_at).toLocaleString('id-ID')}
+                  </div>
                 </div>
-                <div className="text-xs text-slate-500">
-                  {new Date(log.created_at).toLocaleString('id-ID')}
-                </div>
-              </div>
-            ))
+              ))}
+            </div>
           )}
         </CardContent>
       </Card>
 
       <Card>
         <CardHeader>
-          <CardTitle>Login Logs</CardTitle>
+          <div className="flex items-center justify-between">
+            <CardTitle>Login Logs</CardTitle>
+            {loginLogs.length > 0 && (
+              <span className="text-sm text-slate-500 font-normal">{loginLogs.length} log</span>
+            )}
+          </div>
         </CardHeader>
-        <CardContent className="space-y-2 text-sm">
+        <CardContent className="text-sm p-0">
           {loginLogs.length === 0 ? (
-            <div className="text-slate-500">Tidak ada log pada periode ini.</div>
+            <div className="text-slate-500 px-6 pb-6">Tidak ada log pada periode ini.</div>
           ) : (
-            loginLogs.map((log) => (
-              <div
-                key={log.id}
-                className="flex items-center justify-between rounded-md border border-slate-200 px-3 py-2"
-              >
-                <div>
-                  <div className="font-medium">
-                    {log.user?.full_name || log.user?.username || 'Staff'}
+            <div className="space-y-2 overflow-y-auto px-6 pb-6" style={{ maxHeight: '360px' }}>
+              {loginLogs.map((log) => (
+                <div
+                  key={log.id}
+                  className="flex items-center justify-between rounded-md border border-slate-200 px-3 py-2"
+                >
+                  <div>
+                    <div className="font-medium">
+                      {log.user?.full_name || log.user?.username || 'Staff'}
+                    </div>
+                    <div className="text-xs text-slate-500">{log.event}</div>
                   </div>
-                  <div className="text-xs text-slate-500">{log.event}</div>
+                  <div className="text-xs text-slate-500">
+                    {new Date(log.created_at).toLocaleString('id-ID')}
+                  </div>
                 </div>
-                <div className="text-xs text-slate-500">
-                  {new Date(log.created_at).toLocaleString('id-ID')}
-                </div>
-              </div>
-            ))
+              ))}
+            </div>
           )}
         </CardContent>
       </Card>

@@ -477,147 +477,175 @@ export default function Dashboard() {
 
             <Card className="border-slate-200 bg-white text-slate-900 shadow-sm">
               <CardHeader>
-                <CardTitle>Transaksi Terbaru</CardTitle>
+                <div className="flex items-center justify-between">
+                  <CardTitle>Transaksi Terbaru</CardTitle>
+                  {recentOrders.length > 0 && (
+                    <span className="text-sm text-slate-500 font-normal">{recentOrders.length} order</span>
+                  )}
+                </div>
               </CardHeader>
-              <CardContent className="space-y-2 text-sm">
-                {recentOrders.map((order) => (
-                  <div key={order.id} className="flex items-center justify-between">
-                    <div>
-                      <div className="font-medium">{order.order_number}</div>
-                      <div className="text-xs text-slate-500">
-                        {new Date(order.created_at).toLocaleString('id-ID')}
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Badge
-                        variant={
-                          order.status === 'DONE' ? 'success' : order.status === 'VOID' ? 'danger' : 'warning'
-                        }
-                      >
-                        {order.status}
-                      </Badge>
-                      <Button variant="outline" size="sm" onClick={() => openOrderDetail(order)}>
-                        Detail
-                      </Button>
-                    </div>
-                  </div>
-                ))}
-              </CardContent>
-            </Card>
-
-            <Card className="border-slate-200 bg-white text-slate-900 shadow-sm">
-              <CardHeader>
-                <CardTitle>Riwayat Void</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-2 text-sm">
-                {voidLogs.length === 0 ? (
-                  <div className="text-slate-500">Tidak ada void pada periode ini.</div>
-                ) : (
-                  voidLogs.map((log) => (
-                    <div
-                      key={log.id}
-                      className="flex items-center justify-between rounded-md border border-slate-200 px-3 py-2"
-                    >
+              <CardContent className="text-sm p-0">
+                <div className="space-y-2 overflow-y-auto px-6 pb-6" style={{ maxHeight: '360px' }}>
+                  {recentOrders.map((order) => (
+                    <div key={order.id} className="flex items-center justify-between">
                       <div>
-                        <div className="font-medium">
-                          {log.order?.order_number || '-'} 
-                          <span className="ml-1.5 inline-flex items-center rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-medium text-slate-600">
-                            Kasir: {log.user?.full_name || log.user?.username || 'Staff'}
-                          </span>
-                        </div>
-                        <div className="text-xs text-slate-500 mt-0.5">Alasan: {log.reason}</div>
-                      </div>
-                      <div className="text-xs text-slate-500 shrink-0">
-                        {new Date(log.created_at).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}
-                      </div>
-                    </div>
-                  ))
-                )}
-              </CardContent>
-            </Card>
-
-            <Card className="border-slate-200 bg-white text-slate-900 shadow-sm">
-              <CardHeader>
-                <CardTitle>Log Aktivitas Login</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-2 text-sm">
-                {loginLogs.length === 0 ? (
-                  <div className="text-slate-500">Tidak ada log pada periode ini.</div>
-                ) : (
-                  loginLogs.map((log) => (
-                    <div
-                      key={log.id}
-                      className="flex items-center justify-between rounded-md border border-slate-200 px-3 py-2"
-                    >
-                      <div>
-                        <div className="font-medium">
-                          {log.user?.full_name || log.user?.username || 'Staff'}
-                        </div>
-                        <div className="text-xs text-slate-500">{log.event}</div>
-                      </div>
-                      <div className="text-xs text-slate-500 shrink-0">
-                        {new Date(log.created_at).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}
-                      </div>
-                    </div>
-                  ))
-                )}
-              </CardContent>
-            </Card>
-
-            <Card className="border-slate-200 bg-white text-slate-900 shadow-sm">
-              <CardHeader>
-                <CardTitle>Riwayat Shift Kasir</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-2 text-sm">
-                {shifts.length === 0 ? (
-                  <div className="text-slate-500">Tidak ada riwayat shift pada periode ini.</div>
-                ) : (
-                  shifts.map((s) => {
-                    const openTime = new Date(s.opened_at).toLocaleString('id-ID', {
-                      day: '2-digit',
-                      month: 'short',
-                      hour: '2-digit',
-                      minute: '2-digit',
-                    })
-                    const closeTime = s.closed_at
-                      ? new Date(s.closed_at).toLocaleString('id-ID', {
-                          day: '2-digit',
-                          month: 'short',
-                          hour: '2-digit',
-                          minute: '2-digit',
-                        })
-                      : 'Aktif'
-                    return (
-                      <div
-                        key={s.id}
-                        className="rounded-md border border-slate-200 p-3 space-y-1.5"
-                      >
-                        <div className="flex items-center justify-between">
-                          <div className="font-semibold text-slate-800">
-                            Kasir: {s.opened_by_user?.full_name || s.opened_by_user?.username || 'Staff'}
-                          </div>
-                          <Badge
-                            variant={s.closed_at ? 'success' : 'warning'}
-                          >
-                            {s.closed_at ? 'Selesai' : 'Aktif'}
-                          </Badge>
-                        </div>
+                        <div className="font-medium">{order.order_number}</div>
                         <div className="text-xs text-slate-500">
-                          <div>Buka: {openTime}</div>
-                          {s.closed_at && (
-                            <div>
-                              Tutup: {closeTime} (oleh {s.closed_by_user?.full_name || s.closed_by_user?.username || 'Staff'})
+                          {new Date(order.created_at).toLocaleString('id-ID')}
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Badge
+                          variant={
+                            order.status === 'DONE' ? 'success' : order.status === 'VOID' ? 'danger' : 'warning'
+                          }
+                        >
+                          {order.status}
+                        </Badge>
+                        <Button variant="outline" size="sm" onClick={() => openOrderDetail(order)}>
+                          Detail
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="border-slate-200 bg-white text-slate-900 shadow-sm">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <CardTitle>Riwayat Void</CardTitle>
+                  {voidLogs.length > 0 && (
+                    <span className="text-sm text-slate-500 font-normal">{voidLogs.length} log</span>
+                  )}
+                </div>
+              </CardHeader>
+              <CardContent className="text-sm p-0">
+                {voidLogs.length === 0 ? (
+                  <div className="text-slate-500 px-6 pb-6">Tidak ada void pada periode ini.</div>
+                ) : (
+                  <div className="space-y-2 overflow-y-auto px-6 pb-6" style={{ maxHeight: '360px' }}>
+                    {voidLogs.map((log) => (
+                      <div
+                        key={log.id}
+                        className="flex items-center justify-between rounded-md border border-slate-200 px-3 py-2"
+                      >
+                        <div>
+                          <div className="font-medium">
+                            {log.order?.order_number || '-'} 
+                            <span className="ml-1.5 inline-flex items-center rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-medium text-slate-600">
+                              Kasir: {log.user?.full_name || log.user?.username || 'Staff'}
+                            </span>
+                          </div>
+                          <div className="text-xs text-slate-500 mt-0.5">Alasan: {log.reason}</div>
+                        </div>
+                        <div className="text-xs text-slate-500 shrink-0">
+                          {new Date(log.created_at).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+
+            <Card className="border-slate-200 bg-white text-slate-900 shadow-sm">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <CardTitle>Log Aktivitas Login</CardTitle>
+                  {loginLogs.length > 0 && (
+                    <span className="text-sm text-slate-500 font-normal">{loginLogs.length} log</span>
+                  )}
+                </div>
+              </CardHeader>
+              <CardContent className="text-sm p-0">
+                {loginLogs.length === 0 ? (
+                  <div className="text-slate-500 px-6 pb-6">Tidak ada log pada periode ini.</div>
+                ) : (
+                  <div className="space-y-2 overflow-y-auto px-6 pb-6" style={{ maxHeight: '360px' }}>
+                    {loginLogs.map((log) => (
+                      <div
+                        key={log.id}
+                        className="flex items-center justify-between rounded-md border border-slate-200 px-3 py-2"
+                      >
+                        <div>
+                          <div className="font-medium">
+                            {log.user?.full_name || log.user?.username || 'Staff'}
+                          </div>
+                          <div className="text-xs text-slate-500">{log.event}</div>
+                        </div>
+                        <div className="text-xs text-slate-500 shrink-0">
+                          {new Date(log.created_at).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+
+            <Card className="border-slate-200 bg-white text-slate-900 shadow-sm">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <CardTitle>Riwayat Shift Kasir</CardTitle>
+                  {shifts.length > 0 && (
+                    <span className="text-sm text-slate-500 font-normal">{shifts.length} shift</span>
+                  )}
+                </div>
+              </CardHeader>
+              <CardContent className="text-sm p-0">
+                {shifts.length === 0 ? (
+                  <div className="text-slate-500 px-6 pb-6">Tidak ada riwayat shift pada periode ini.</div>
+                ) : (
+                  <div className="space-y-2 overflow-y-auto px-6 pb-6" style={{ maxHeight: '360px' }}>
+                    {shifts.map((s) => {
+                      const openTime = new Date(s.opened_at).toLocaleString('id-ID', {
+                        day: '2-digit',
+                        month: 'short',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      })
+                      const closeTime = s.closed_at
+                        ? new Date(s.closed_at).toLocaleString('id-ID', {
+                            day: '2-digit',
+                            month: 'short',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                          })
+                        : 'Aktif'
+                      return (
+                        <div
+                          key={s.id}
+                          className="rounded-md border border-slate-200 p-3 space-y-1.5"
+                        >
+                          <div className="flex items-center justify-between">
+                            <div className="font-semibold text-slate-800">
+                              Kasir: {s.opened_by_user?.full_name || s.opened_by_user?.username || 'Staff'}
+                            </div>
+                            <Badge
+                              variant={s.closed_at ? 'success' : 'warning'}
+                            >
+                              {s.closed_at ? 'Selesai' : 'Aktif'}
+                            </Badge>
+                          </div>
+                          <div className="text-xs text-slate-500">
+                            <div>Buka: {openTime}</div>
+                            {s.closed_at && (
+                              <div>
+                                Tutup: {closeTime} (oleh {s.closed_by_user?.full_name || s.closed_by_user?.username || 'Staff'})
+                              </div>
+                            )}
+                          </div>
+                          {s.notes && (
+                            <div className="bg-slate-50 rounded px-2.5 py-1.5 text-xs text-slate-600 mt-1 italic border border-slate-100">
+                              Catatan: {s.notes}
                             </div>
                           )}
                         </div>
-                        {s.notes && (
-                          <div className="bg-slate-50 rounded px-2.5 py-1.5 text-xs text-slate-600 mt-1 italic border border-slate-100">
-                            Catatan: {s.notes}
-                          </div>
-                        )}
-                      </div>
-                    )
-                  })
+                      )
+                    })}
+                  </div>
                 )}
               </CardContent>
             </Card>
