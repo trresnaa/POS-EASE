@@ -46,7 +46,7 @@ const s = {
  * @param {string} [cashierName='']  - Nama kasir yang memproses transaksi
  */
 export async function printReceipt(order, items, payment, cashierName = '') {
-  const receiptWindow = window.open('', 'PRINT', 'height=700,width=420')
+  const receiptWindow = window.open('', 'PRINT', 'height=700,width=340')
   if (!receiptWindow) return
 
   // Bangun baris-baris tabel item pesanan
@@ -87,6 +87,7 @@ export async function printReceipt(order, items, payment, cashierName = '') {
     @page { margin: 4mm 6mm; size: 80mm auto; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Courier New', Courier, monospace; font-size: 11px; color: #111; background: #fff; width: 100%; }
+    @media screen { body { width: 302px; margin: 0 auto; padding: 8px 0; } }
     .header { text-align: center; padding: 6px 0 4px; }
     .brand { font-size: 18px; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; }
     .sub-brand { font-size: 10px; color: #555; margin-top: 1px; }
