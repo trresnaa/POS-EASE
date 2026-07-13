@@ -88,8 +88,10 @@ export default function Dashboard() {
     supabase
       .from('orders')
       .select('id, order_number, total, status, created_at')
+      .gte('created_at', startIso)
+      .lte('created_at', endIso)
       .order('created_at', { ascending: false })
-      .limit(8)
+      .limit(20)
       .then(({ data }) => setRecentOrders(data || []))
 
     supabase
