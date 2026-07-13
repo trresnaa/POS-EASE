@@ -918,7 +918,7 @@ export default function Pos() {
           <div className="w-full max-w-md rounded-lg bg-white p-5 shadow-lg">
             <div className="mb-4">
               <div className="text-lg font-semibold text-slate-900">{selectedProduct.name}</div>
-              <div className="text-xs text-slate-500">Pilih penyesuaian untuk barista.</div>
+              <div className="text-xs text-slate-500">Pilih penyesuaian untuk customer.</div>
             </div>
             <div className="space-y-4">
               {selectedProduct.allow_temperature !== false && (
