@@ -575,8 +575,9 @@ export default function Dashboard() {
                           </div>
                           <div className="text-xs text-slate-500">{log.event}</div>
                         </div>
-                        <div className="text-xs text-slate-500 shrink-0">
-                          {new Date(log.created_at).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}
+                        <div className="text-xs text-slate-500 shrink-0 text-right">
+                          <div>{new Date(log.created_at).toLocaleDateString('id-ID', { day: '2-digit', month: 'short' })}</div>
+                          <div>{new Date(log.created_at).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}</div>
                         </div>
                       </div>
                     ))}
