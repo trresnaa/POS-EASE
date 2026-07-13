@@ -328,17 +328,15 @@ export default function Pos() {
    * @returns {number} Surcharge dalam Rupiah (0 jika tidak ada tambahan)
    */
   const getMilkSurchargeForOption = (product, milkOption) => {
-    const surchargeMap = {
-      Freshmilk: MILK_SURCHARGE.Freshmilk,
-      Oatmilk: MILK_SURCHARGE.Oatmilk,
-    }
     const defaultMilk = getDefaultMilkOption(product)
     if (defaultMilk === 'Freshmilk') {
-      // Produk sudah include Freshmilk, hanya kenakan selisih jika upgrade ke Oatmilk
-      if (milkOption === 'Oatmilk') return Math.max(0, MILK_SURCHARGE.Oatmilk - MILK_SURCHARGE.Freshmilk)
-      return 0
+      // Produk sudah include Freshmilk (gratis).
+      // Upgrade ke Oatmilk dikenakan surcharge penuh Oatmilk.
+      if (milkOption === 'Oatmilk') return MILK_SURCHARGE.Oatmilk
+      return 0 // Freshmilk tetap gratis
     }
-    return surchargeMap[milkOption] || 0
+    // Produk tidak berbasis susu: surcharge penuh sesuai pilihan
+    return MILK_SURCHARGE[milkOption] || 0
   }
 
   /**
