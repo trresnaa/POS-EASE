@@ -9,6 +9,16 @@ import { formatRupiah } from '../lib/format'
 import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import { addDaysToDateInput, getGmt8DateInput, getGmt8DateRange } from '../lib/date'
 
+const formatYAxis = (value) => {
+  if (value >= 1_000_000) {
+    return `Rp ${(value / 1_000_000).toFixed(1).replace('.0', '')} jt`
+  }
+  if (value >= 1_000) {
+    return `Rp ${(value / 1_000).toFixed(0)} rb`
+  }
+  return `Rp ${value}`
+}
+
 export default function Dashboard() {
   const [dailySales, setDailySales] = useState([])
   const [hourlySales, setHourlySales] = useState([])
@@ -330,7 +340,7 @@ export default function Dashboard() {
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={dailySales}>
                     <XAxis dataKey="day" stroke="#94a3b8" />
-                    <YAxis stroke="#94a3b8" />
+                    <YAxis stroke="#94a3b8" width={80} tickFormatter={formatYAxis} />
                     <Tooltip
                       contentStyle={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0' }}
                       formatter={(value) => formatRupiah(value)}
@@ -426,7 +436,7 @@ export default function Dashboard() {
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={hourlySales}>
                     <XAxis dataKey="hour" stroke="#94a3b8" />
-                    <YAxis stroke="#94a3b8" domain={[0, hourlyMax]} />
+                    <YAxis stroke="#94a3b8" domain={[0, hourlyMax]} width={80} tickFormatter={formatYAxis} />
                     <Tooltip
                       contentStyle={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0' }}
                       formatter={(value) => formatRupiah(value)}
