@@ -199,18 +199,12 @@ export default function MasterStaff() {
     const label = newStatus ? 'mengaktifkan' : 'menonaktifkan'
     setSavingDetail(true)
     try {
-      const { data, error } = await supabase.functions.invoke('update-staff-user', {
-        body: {
-          user_id: user.id,
-          auth_user_id: user.auth_user_id,
-          full_name: user.full_name,
-          username: user.username,
-          role_id: user.role_id,
-          is_active: newStatus,
-        },
+      const { error } = await supabase.rpc('toggle_staff_status', {
+        p_user_id: user.id,
+        p_is_active: newStatus,
       })
-      if (error || data?.error) {
-        showToast(`Gagal ${label} staff: ${error?.message || data?.error}`, 'danger')
+      if (error) {
+        showToast(`Gagal ${label} staff: ${error.message}`, 'danger')
         return
       }
       showToast(
