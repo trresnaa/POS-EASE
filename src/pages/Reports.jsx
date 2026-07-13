@@ -267,41 +267,50 @@ export default function Reports() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Transaksi Periode</CardTitle>
+          <div className="flex items-center justify-between">
+            <CardTitle>Transaksi Periode</CardTitle>
+            {orders.length > 0 && (
+              <span className="text-sm text-slate-500 font-normal">{orders.length} transaksi</span>
+            )}
+          </div>
         </CardHeader>
-        <CardContent className="space-y-2 text-sm">
+        <CardContent className="text-sm p-0">
           {orders.length === 0 ? (
-            <div className="text-slate-400">Tidak ada transaksi.</div>
+            <div className="text-slate-400 px-6 pb-6">Tidak ada transaksi.</div>
           ) : (
-            orders.map((order) => (
-              <div
-                key={order.id}
-                className="flex items-center justify-between rounded-md border border-slate-200 px-3 py-2"
-              >
-                <div>
-                  <div className="font-medium">{order.order_number}</div>
-                  <div className="text-xs text-slate-500">
-                    {new Date(order.created_at).toLocaleString('id-ID')}
+            <div
+              className="space-y-2 overflow-y-auto px-6 pb-6"
+              style={{ maxHeight: '520px' }}
+            >
+              {orders.map((order) => (
+                <div
+                  key={order.id}
+                  className="flex items-center justify-between rounded-md border border-slate-200 px-3 py-2"
+                >
+                  <div>
+                    <div className="font-medium">{order.order_number}</div>
+                    <div className="text-xs text-slate-500">
+                      {new Date(order.created_at).toLocaleString('id-ID')}
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="font-medium">
+                      {order.status === 'VOID' ? (
+                        <span className="text-slate-400">
+                          <span className="line-through mr-1.5">{formatRupiah(order.total)}</span>
+                          <span>{formatRupiah(0)}</span>
+                        </span>
+                      ) : (
+                        formatRupiah(order.total)
+                      )}
+                    </div>
+                    <div className="text-xs text-slate-500">
+                      {order.payments?.[0]?.method || 'CASH'} - {order.status}
+                    </div>
                   </div>
                 </div>
-                <div className="text-right">
-                  <div className="font-medium">
-                    {order.status === 'VOID' ? (
-                      <span className="text-slate-400">
-                        <span className="line-through mr-1.5">{formatRupiah(order.total)}</span>
-                        <span>{formatRupiah(0)}</span>
-                      </span>
-                    ) : (
-                      formatRupiah(order.total)
-                    )}
-                  </div>
-
-                  <div className="text-xs text-slate-500">
-                    {order.payments?.[0]?.method || 'CASH'} - {order.status}
-                  </div>
-                </div>
-              </div>
-            ))
+              ))}
+            </div>
           )}
         </CardContent>
       </Card>
