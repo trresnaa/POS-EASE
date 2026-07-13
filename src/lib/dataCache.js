@@ -52,6 +52,8 @@ const cache = new Proxy(
     productAddons: _stored.productAddons ?? null,
     orders: _stored.orders ?? null,
     completedOrders: _stored.completedOrders ?? null,
+    activeShift: _stored.activeShift ?? undefined, // undefined = belum pernah di-fetch
+    shiftStats: _stored.shiftStats ?? null,
   },
   {
     set(target, prop, value) {
@@ -75,6 +77,8 @@ export function clearCache() {
   cache.productAddons = null
   cache.orders = null
   cache.completedOrders = null
+  cache.activeShift = undefined
+  cache.shiftStats = null
   sessionStorage.removeItem(SESSION_KEY)
 }
 

@@ -53,9 +53,9 @@ export default function Pos() {
   }
 
   // Shift states & functions
-  const [activeShift, setActiveShift] = useState(null)
-  const [shiftStats, setShiftStats] = useState({ count: 0, revenue: 0 })
-  const [loadingShift, setLoadingShift] = useState(true)
+  const [activeShift, setActiveShift] = useState(dataCache.activeShift ?? null)
+  const [shiftStats, setShiftStats] = useState(dataCache.shiftStats ?? { count: 0, revenue: 0 })
+  const [loadingShift, setLoadingShift] = useState(!dataCache.activeShift && dataCache.activeShift !== false)
   const [showCloseShiftModal, setShowCloseShiftModal] = useState(false)
   const [closeShiftNotes, setCloseShiftNotes] = useState('')
 
@@ -93,10 +93,17 @@ export default function Pos() {
 
         const count = ordersData?.length || 0
         const revenue = (ordersData || []).reduce((sum, o) => sum + (o.total || 0), 0)
-        setShiftStats({ count, revenue })
+        const stats = { count, revenue }
+        setShiftStats(stats)
+        // Simpan ke cache
+        dataCache.activeShift = data
+        dataCache.shiftStats = stats
       } else {
         setActiveShift(null)
         setShiftStats({ count: 0, revenue: 0 })
+        // Simpan null ke cache (false sebagai sentinel agar loadingShift tidak true lagi)
+        dataCache.activeShift = false
+        dataCache.shiftStats = { count: 0, revenue: 0 }
       }
     } catch (err) {
       console.error('Error loading active shift:', err)
