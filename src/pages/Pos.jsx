@@ -991,6 +991,9 @@ export default function Pos() {
                         onClick={() => setSelectedMilk(option)}
                       >
                         {option}
+                        {MILK_SURCHARGE[option] > 0 && option !== 'Freshmilk' && (
+                          <span className="ml-1 opacity-70">(+Rp {MILK_SURCHARGE[option].toLocaleString('id-ID')})</span>
+                        )}
                       </Button>
                     ))}
                   </div>
