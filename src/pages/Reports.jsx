@@ -436,6 +436,7 @@ export default function Reports() {
               ))}
             </div>
           )}
+        </CardContent>
       </Card>
 
       {/* Modal Detail Pesanan */}
