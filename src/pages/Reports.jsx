@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card'
 import { Button } from '../components/ui/button'
 import { Input } from '../components/ui/input'
@@ -44,6 +44,12 @@ export default function Reports() {
   const [voidLogs, setVoidLogs] = useState([])
   const [loginLogs, setLoginLogs] = useState([])
   const [toast, setToast] = useState({ show: false, message: '', type: 'info' })
+  
+  // States untuk search & detail modal
+  const [searchQuery, setSearchQuery] = useState('')
+  const [detailOrder, setDetailOrder] = useState(null)
+  const [detailItems, setDetailItems] = useState([])
+  const [loadingDetail, setLoadingDetail] = useState(false)
 
   // Tampilkan notifikasi toast sementara selama 4 detik
   const showToast = (message, type = 'info') => {
@@ -119,6 +125,31 @@ export default function Reports() {
     setVoidLogs(voidData || [])
     setLoginLogs(loginData || [])
   }, [from, to])
+
+  const openOrderDetail = async (order) => {
+    setDetailOrder(order)
+    setLoadingDetail(true)
+    const { data } = await supabase
+      .from('order_items')
+      .select('id, qty, price, line_total, note, product:products(name)')
+      .eq('order_id', order.id)
+      .order('id', { ascending: true })
+    setDetailItems(data || [])
+    setLoadingDetail(false)
+  }
+
+  const closeOrderDetail = () => {
+    setDetailOrder(null)
+    setDetailItems([])
+    setLoadingDetail(false)
+  }
+
+  const filteredOrders = useMemo(() => {
+    if (!searchQuery.trim()) return orders
+    return orders.filter((order) =>
+      order.order_number.toLowerCase().includes(searchQuery.toLowerCase().trim())
+    )
+  }, [orders, searchQuery])
 
   useEffect(() => {
     // eslint-disable-next-line
@@ -267,25 +298,38 @@ export default function Reports() {
 
       <Card>
         <CardHeader>
-          <div className="flex items-center justify-between">
-            <CardTitle>Transaksi Periode</CardTitle>
-            {orders.length > 0 && (
-              <span className="text-sm text-slate-500 font-normal">{orders.length} transaksi</span>
-            )}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+              <CardTitle>Transaksi Periode</CardTitle>
+              {orders.length > 0 && (
+                <span className="text-xs text-slate-500 font-normal">
+                  {filteredOrders.length !== orders.length 
+                    ? `Menampilkan ${filteredOrders.length} dari ${orders.length} transaksi` 
+                    : `${orders.length} transaksi`}
+                </span>
+              )}
+            </div>
+            <Input
+              placeholder="Cari nomor order..."
+              className="max-w-xs h-9 bg-white border-slate-200"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
           </div>
         </CardHeader>
         <CardContent className="text-sm p-0">
-          {orders.length === 0 ? (
-            <div className="text-slate-400 px-6 pb-6">Tidak ada transaksi.</div>
+          {filteredOrders.length === 0 ? (
+            <div className="text-slate-400 px-6 pb-6">Tidak ada transaksi ditemukan.</div>
           ) : (
             <div
               className="space-y-2 overflow-y-auto px-6 pb-6"
               style={{ maxHeight: '520px' }}
             >
-              {orders.map((order) => (
+              {filteredOrders.map((order) => (
                 <div
                   key={order.id}
-                  className="flex items-center justify-between rounded-md border border-slate-200 px-3 py-2"
+                  onClick={() => openOrderDetail(order)}
+                  className="flex items-center justify-between rounded-md border border-slate-200 px-4 py-3 hover:bg-slate-50 cursor-pointer transition-colors active:bg-slate-100"
                 >
                   <div>
                     <div className="font-medium">{order.order_number}</div>
@@ -448,6 +492,72 @@ export default function Reports() {
           )}
         </CardContent>
       </Card>
+
+      {/* Modal Detail Pesanan */}
+      {detailOrder && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 p-4">
+          <div className="w-full max-w-2xl rounded-lg bg-white p-6 shadow-lg border border-slate-100">
+            <div className="mb-4 flex items-start justify-between">
+              <div>
+                <div className="text-lg font-bold text-slate-900">Detail Pesanan</div>
+                <div className="text-sm font-semibold text-slate-500 mt-0.5">{detailOrder.order_number}</div>
+                <div className="text-xs text-slate-400 mt-1">
+                  {new Date(detailOrder.created_at).toLocaleString('id-ID')}
+                </div>
+              </div>
+              <div className="text-right">
+                <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${
+                  detailOrder.status === 'DONE' ? 'bg-green-100 text-green-800' :
+                  detailOrder.status === 'VOID' ? 'bg-red-100 text-red-800' :
+                  'bg-yellow-100 text-yellow-800'
+                }`}>
+                  {detailOrder.status}
+                </span>
+                <div className="text-xs text-slate-500 mt-1">
+                  Metode: {detailOrder.payments?.[0]?.method || 'CASH'}
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-2.5 max-h-[320px] overflow-y-auto pr-1">
+              {loadingDetail ? (
+                <div className="text-center py-6 text-slate-500">Memuat item...</div>
+              ) : detailItems.length === 0 ? (
+                <div className="text-center py-6 text-slate-500">Tidak ada item ditemukan.</div>
+              ) : (
+                detailItems.map((item) => (
+                  <div key={item.id} className="rounded-md border border-slate-200 px-4 py-3 bg-slate-50/50">
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <div className="font-semibold text-slate-800">{item.product?.name || 'Menu'}</div>
+                        <div className="text-xs text-slate-500 mt-1">
+                          Qty: {item.qty} &times; {formatRupiah(item.price)}
+                        </div>
+                        {item.note && (
+                          <div className="text-xs text-slate-500 mt-1 bg-white border border-slate-100 rounded px-2 py-1 italic">
+                            Catatan: {item.note}
+                          </div>
+                        )}
+                      </div>
+                      <div className="text-sm font-bold text-slate-900">{formatRupiah(item.line_total)}</div>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+
+            <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+              <div>
+                <div className="text-xs text-slate-500">Total Transaksi</div>
+                <div className="text-lg font-extrabold text-slate-900">{formatRupiah(detailOrder.total)}</div>
+              </div>
+              <Button variant="outline" onClick={closeOrderDetail} className="border-slate-200">
+                Tutup
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Floating Toast Notification */}
       {toast.show && (
