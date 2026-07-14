@@ -265,8 +265,29 @@ export default function Queue() {
   const markDone = async (orderId) => {
     setDoneIds((prev) => new Set([...prev, orderId]))
     setTimeout(async () => {
-      await supabase.from('orders').update({ status: 'DONE' }).eq('id', orderId)
-      setExpandedId(null)
+      const { error } = await supabase
+        .from('orders')
+        .update({ status: 'DONE' })
+        .eq('id', orderId)
+      
+      if (error) {
+        showToast(`Gagal menyelesaikan order: ${error.message}`, 'danger')
+        setDoneIds((prev) => {
+          const next = new Set(prev)
+          next.delete(orderId)
+          return next
+        })
+      } else {
+        setExpandedId(null)
+        // Jalankan reload manual agar perubahan langsung instan ter-update di layar
+        await Promise.all([loadOrders(), loadCompletedOrders()])
+        // Bersihkan doneIds
+        setDoneIds((prev) => {
+          const next = new Set(prev)
+          next.delete(orderId)
+          return next
+        })
+      }
     }, 600)
   }
 
