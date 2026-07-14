@@ -42,7 +42,6 @@ export default function Reports() {
   const [topProducts, setTopProducts] = useState([])
   const [bottomProducts, setBottomProducts] = useState([])
   const [voidLogs, setVoidLogs] = useState([])
-  const [loginLogs, setLoginLogs] = useState([])
   const [toast, setToast] = useState({ show: false, message: '', type: 'info' })
   
   // States untuk search & detail modal
@@ -79,7 +78,6 @@ export default function Reports() {
       { data: topData },
       { data: bottomData },
       { data: voidData },
-      { data: loginData },
     ] = await Promise.all([
       supabase
         .from('orders')
@@ -109,21 +107,12 @@ export default function Reports() {
         .lte('created_at', endIso)
         .order('created_at', { ascending: false })
         .limit(50),
-
-      supabase
-        .from('login_logs')
-        .select('id, event, created_at, user:users(full_name, username)')
-        .gte('created_at', startIso)
-        .lte('created_at', endIso)
-        .order('created_at', { ascending: false })
-        .limit(50),
     ])
 
     setOrders(orderData || [])
     setTopProducts(topData || [])
     setBottomProducts(bottomData || [])
     setVoidLogs(voidData || [])
-    setLoginLogs(loginData || [])
   }, [from, to])
 
   const openOrderDetail = async (order) => {
@@ -234,14 +223,6 @@ export default function Reports() {
       ...voidLogs.map((log) => [
         log.order?.order_number || '-',
         log.reason,
-        new Date(log.created_at).toLocaleString('id-ID'),
-      ]),
-      [],
-      ['6. LOG AKTIVITAS LOGIN'],
-      ['Nama Pengguna', 'Tindakan (Event)', 'Waktu Aktivitas'],
-      ...loginLogs.map((log) => [
-        log.user?.full_name || log.user?.username || 'Staff',
-        log.event,
         new Date(log.created_at).toLocaleString('id-ID'),
       ])
     ]
@@ -455,42 +436,6 @@ export default function Reports() {
               ))}
             </div>
           )}
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <div className="flex items-center justify-between">
-            <CardTitle>Login Logs</CardTitle>
-            {loginLogs.length > 0 && (
-              <span className="text-sm text-slate-500 font-normal">{loginLogs.length} log</span>
-            )}
-          </div>
-        </CardHeader>
-        <CardContent className="text-sm p-0">
-          {loginLogs.length === 0 ? (
-            <div className="text-slate-500 px-6 pb-6">Tidak ada log pada periode ini.</div>
-          ) : (
-            <div className="space-y-2 overflow-y-auto px-6 pb-6" style={{ maxHeight: '360px' }}>
-              {loginLogs.map((log) => (
-                <div
-                  key={log.id}
-                  className="flex items-center justify-between rounded-md border border-slate-200 px-3 py-2"
-                >
-                  <div>
-                    <div className="font-medium">
-                      {log.user?.full_name || log.user?.username || 'Staff'}
-                    </div>
-                    <div className="text-xs text-slate-500">{log.event}</div>
-                  </div>
-                  <div className="text-xs text-slate-500">
-                    {new Date(log.created_at).toLocaleString('id-ID')}
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </CardContent>
       </Card>
 
       {/* Modal Detail Pesanan */}
