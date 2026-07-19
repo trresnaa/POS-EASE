@@ -21,6 +21,8 @@ const formatYAxis = (value) => {
 
 export default function Dashboard() {
   const [dailySales, setDailySales] = useState([])
+  const [monthlySales, setMonthlySales] = useState([])
+  const [trendMode, setTrendMode] = useState('daily')
   const [hourlySales, setHourlySales] = useState([])
   const [metrics, setMetrics] = useState({ omzet: 0, profit: 0, orders: 0 })
   const [topProducts, setTopProducts] = useState([])
@@ -64,10 +66,6 @@ export default function Dashboard() {
             total_orders: Number(row.total_orders || 0),
           })) ?? []
         setDailySales(mapped)
-        const omzet = mapped.reduce((sum, row) => sum + row.total_sales, 0)
-        const profit = mapped.reduce((sum, row) => sum + row.total_profit, 0)
-        const orders = mapped.reduce((sum, row) => sum + row.total_orders, 0)
-        setMetrics({ omzet, profit, orders })
       })
 
     const hoursAgo = new Date()
@@ -151,7 +149,36 @@ export default function Dashboard() {
         })
         setPaymentBreakdown({ cash, qris })
       })
+
+    // Fetch monthly sales
+    supabase
+      .from('sales_monthly')
+      .select('*')
+      .gte('month', startIso)
+      .lte('month', endIso)
+      .order('month', { ascending: true })
+      .then(({ data }) => {
+        const mapped =
+          data?.map((row) => ({
+            month: new Date(row.month).toLocaleDateString('id-ID', { month: 'short', year: 'numeric' }),
+            total_sales: Number(row.total_sales || 0),
+            total_profit: Number(row.total_profit || 0),
+            total_orders: Number(row.total_orders || 0),
+          })) ?? []
+        setMonthlySales(mapped)
+      })
   }, [range.from, range.to])
+
+  // Compute metrics from the active trend mode
+  const activeTrendData = trendMode === 'monthly' ? monthlySales : dailySales
+  const trendDataKey = trendMode === 'monthly' ? 'month' : 'day'
+
+  useEffect(() => {
+    const omzet = activeTrendData.reduce((sum, row) => sum + row.total_sales, 0)
+    const profit = activeTrendData.reduce((sum, row) => sum + row.total_profit, 0)
+    const orders = activeTrendData.reduce((sum, row) => sum + row.total_orders, 0)
+    setMetrics({ omzet, profit, orders })
+  }, [activeTrendData])
 
   const hourlyMax = useMemo(() => {
     return Math.max(...hourlySales.map((item) => item.total_sales), 0)
@@ -334,12 +361,38 @@ export default function Dashboard() {
           <div className="mt-6 grid gap-6 lg:grid-cols-[2fr_1fr]">
             <Card className="border-slate-200 bg-white text-slate-900 shadow-sm">
               <CardHeader>
-                <CardTitle>Tren Penjualan Harian</CardTitle>
+                <div className="flex items-center justify-between">
+                  <CardTitle>Tren Penjualan</CardTitle>
+                  <div className="flex rounded-md border border-slate-200 overflow-hidden text-xs">
+                    <button
+                      type="button"
+                      onClick={() => setTrendMode('daily')}
+                      className={`px-3 py-1 transition-colors ${
+                        trendMode === 'daily'
+                          ? 'bg-slate-900 text-white'
+                          : 'text-slate-600 hover:bg-slate-100'
+                      }`}
+                    >
+                      Harian
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setTrendMode('monthly')}
+                      className={`px-3 py-1 transition-colors ${
+                        trendMode === 'monthly'
+                          ? 'bg-slate-900 text-white'
+                          : 'text-slate-600 hover:bg-slate-100'
+                      }`}
+                    >
+                      Bulanan
+                    </button>
+                  </div>
+                </div>
               </CardHeader>
               <CardContent className="h-72">
                 <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={dailySales}>
-                    <XAxis dataKey="day" stroke="#94a3b8" />
+                  <LineChart data={activeTrendData}>
+                    <XAxis dataKey={trendDataKey} stroke="#94a3b8" />
                     <YAxis stroke="#94a3b8" width={80} tickFormatter={formatYAxis} />
                     <Tooltip
                       contentStyle={{ backgroundColor: '#ffffff', border: '1px solid #e2e8f0' }}

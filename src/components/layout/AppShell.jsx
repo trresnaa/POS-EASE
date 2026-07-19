@@ -143,6 +143,7 @@ export default function AppShell({ children }) {
   const staffLinks = [
     { to: '/pos', label: 'POS' },
     { to: '/queue', label: 'Antrean' },
+    { to: '/master/products', label: 'Produk' },
   ]
 
   const ownerLinks = [

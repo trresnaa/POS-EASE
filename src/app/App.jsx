@@ -174,11 +174,9 @@ export default function App() {
             path="/master/products"
             element={
               <ProtectedRoute>
-                <RequireRole role="owner">
-                  <AppShell>
-                    <MasterProducts />
-                  </AppShell>
-                </RequireRole>
+                <AppShell>
+                  <MasterProducts />
+                </AppShell>
               </ProtectedRoute>
             }
           />

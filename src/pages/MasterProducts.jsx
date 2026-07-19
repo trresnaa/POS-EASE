@@ -5,6 +5,7 @@ import { Input } from '../components/ui/input'
 import { supabase } from '../lib/supabaseClient'
 import { formatRupiah } from '../lib/format'
 import { ConfirmDialog } from '../components/ui/confirm-dialog'
+import { useAuth } from '../app/useAuth'
 
 const emptyForm = {
   name: '',
@@ -21,6 +22,8 @@ const emptyForm = {
 }
 
 export default function MasterProducts() {
+  const { profile } = useAuth()
+  const isOwner = profile?.role === 'owner'
   const [products, setProducts] = useState([])
   const [categories, setCategories] = useState([])
   const [form, setForm] = useState(emptyForm)
@@ -176,10 +179,10 @@ export default function MasterProducts() {
 
   const toggleActive = async (product) => {
     const nextActive = product.is_active === false
-    const { error } = await supabase
-      .from('products')
-      .update({ is_active: nextActive })
-      .eq('id', product.id)
+    const { error } = await supabase.rpc('toggle_product_status', {
+      p_product_id: product.id,
+      p_is_active: nextActive,
+    })
     if (error) {
       showToast(`Gagal update status: ${error.message}`, 'danger')
       return
@@ -297,7 +300,7 @@ export default function MasterProducts() {
 
   return (
     <div className="space-y-6">
-      <Card>
+      {isOwner && (<Card>
         <CardHeader>
           <CardTitle>Tambah Produk</CardTitle>
         </CardHeader>
@@ -468,7 +471,7 @@ export default function MasterProducts() {
             </Button>
           </div>
         </CardContent>
-      </Card>
+      </Card>)}
 
       <Card>
         <CardHeader>
@@ -518,16 +521,20 @@ export default function MasterProducts() {
                     />
                     {isActive ? 'Aktif' : 'Nonaktif'}
                   </label>
-                  <Button variant="outline" size="sm" onClick={() => openEdit(product)}>
-                    Edit
-                  </Button>
-                  <Button
-                    size="sm"
-                    className="bg-rose-600 text-white hover:bg-rose-700"
-                    onClick={() => triggerDeleteProduct(product)}
-                  >
-                    Hapus
-                  </Button>
+                  {isOwner && (
+                    <Button variant="outline" size="sm" onClick={() => openEdit(product)}>
+                      Edit
+                    </Button>
+                  )}
+                  {isOwner && (
+                    <Button
+                      size="sm"
+                      className="bg-rose-600 text-white hover:bg-rose-700"
+                      onClick={() => triggerDeleteProduct(product)}
+                    >
+                      Hapus
+                    </Button>
+                  )}
                 </div>
               </div>
             )
@@ -535,7 +542,7 @@ export default function MasterProducts() {
         </CardContent>
       </Card>
 
-      {editingProduct ? (
+      {isOwner && editingProduct ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 p-4">
           <div className="w-full max-w-xl rounded-lg bg-white p-5 shadow-lg">
             <div className="mb-4">
